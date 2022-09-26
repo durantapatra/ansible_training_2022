@@ -1,0 +1,6 @@
+---
+# tasks file for secrole
+
+- name: print i am sec role
+  debug:
+          msg: "i am testing role of secrole"

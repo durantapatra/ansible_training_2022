@@ -1,0 +1,30 @@
+- name: setup backend web server using httpd
+  hosts: webserver
+  vars: 
+        - first_name: "Vimal"
+  tasks:
+  - name: install software for web
+    package:
+            name: "httpd"
+            state: present
+    register: webinstall
+
+
+
+  - debug:
+          msg: "httpd Successfully installed ..."
+    when: not webinstall.failed
+
+  
+  - name: deploy web page
+    copy: 
+      dest: "/var/www/html/index.html"
+      content: "Welcome to LW !!\n {{ first_name }}"
+
+
+  - name: start web service
+    service:
+            name: "httpd"
+            state: started
+    when: not webinstall.failed
+            

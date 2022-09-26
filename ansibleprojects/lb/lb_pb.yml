@@ -1,0 +1,36 @@
+- name: setup LB using nginx
+  hosts: lb
+  tasks:
+  - name: install software for nginx
+    package:
+            name: "nginx"
+            state: present
+    register: lbinstall
+
+
+
+  - debug:
+          msg: "nginx Successfully installed ..."
+    when: not lbinstall.failed
+
+
+  - name: conf LB BE systems
+    template:
+            src: "lb_conf.j2"
+            dest: "/etc/nginx/conf.d/lb.conf"
+    notify:
+    - "restart nginx service"
+
+  - name: start nginx service
+    service:
+            name: "nginx"
+            state: started
+    when: not lbinstall.failed
+           
+  handlers:
+  - name: restart nginx service
+    service:
+            name: "nginx"
+            state: restarted
+    when: not lbinstall.failed
+

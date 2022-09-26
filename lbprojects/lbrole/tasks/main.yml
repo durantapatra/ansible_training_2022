@@ -1,0 +1,6 @@
+---
+# tasks file for lbrole
+
+- name: print i am loadbalance
+  debug:
+          msg: "I am testing role of lb"

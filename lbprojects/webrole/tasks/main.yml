@@ -1,0 +1,8 @@
+---
+# tasks file for webrole
+
+
+- name: print i am webrole
+  debug:
+          msg: "i am testing role of web {{ name }} "
+

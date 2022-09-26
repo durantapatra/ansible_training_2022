@@ -1,0 +1,9 @@
+- hosts: awsvm
+  vars_files:
+  - webvar.yml
+
+  tasks:
+  - name: deploy web page
+    template:
+      dest: "{{ web_doc_root }}/index.html"
+      src: "{{ webpage }}"

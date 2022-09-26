@@ -1,0 +1,7 @@
+web_pack: "httpd"
+web_doc_root: "/var/www/html/"
+webpage: "first.html.j2"
+x: 45
+y: 500
+company_name: "hash13"
+web_port: 1234

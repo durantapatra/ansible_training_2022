@@ -1,0 +1,13 @@
+- hosts: 192.168.0.113
+  vars:
+   x:
+    name: "Duranta"
+    phone: 8337851550
+    remarks: "ok"
+    id: 1234
+
+  tasks:
+  - debug:
+          var: x['name']
+  - debug:
+          var: x.phone

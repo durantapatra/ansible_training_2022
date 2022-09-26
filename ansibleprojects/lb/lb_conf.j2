@@ -1,0 +1,19 @@
+
+  upstream myproject {
+
+{% for i in groups.webserver  %}
+
+server {{ i }}:80;
+{% endfor %}
+
+}
+
+
+  server {
+    listen 8080;
+#     server_name www.domain.com;
+    location / {
+      proxy_pass http://myproject;
+    }
+}
+

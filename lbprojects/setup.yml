@@ -1,0 +1,11 @@
+- hosts: webserver
+  roles:
+  - webrole
+  - secrole
+
+
+- hosts: lb
+  roles:
+  - lbrole
+  - secrole
+

@@ -1,0 +1,47 @@
+- hosts: awsvm
+  vars_files:
+  - webvar.yml
+
+  tasks:
+  - command: "mkdir /tmp/os11"
+    ignore_errors: true
+
+
+  - name: install web pack
+    package:
+      name: "{{ web_pack }}"
+      state: present
+    when: ansible_os_family == "RedHat" and ansible_memory_mb.real.free >= 100
+    register: webin
+    ignore_errors: true
+
+
+
+  - debug:
+          var: webin.rc
+  
+
+  - name: deploy web page
+    template:
+      dest: "{{ web_doc_root }}/index.html"
+      src: "{{ webpage }}"
+
+  - name: conf change in my apache web server
+    template:
+      dest: "/etc/httpd/conf.d/vimal.conf"
+      src: "web.conf.j2"
+    notify: "web service restart"
+    when: webin.rc == 0
+
+  - name: Service Start
+    service:
+      name: "httpd"
+      state: started
+    when: webin.rc == 0
+
+  handlers:
+  - name: web service restart
+    service:
+      name: "httpd"
+      state: restarted
+    when: webin.rc == 0

@@ -1,0 +1,32 @@
+- hosts: awsvm
+  vars: 
+    p: 
+    - "httpd"
+  
+  tasks:
+  - name: "Install webserver package"
+    package: 
+      name: "{{  p  }}" 
+      state: present
+    register: y
+    
+  - debug: 
+      var: y.changed
+      
+      
+  - copy: 
+      dest: "/var/www/html" 
+      src: "/web.html"
+      
+      
+  - service: 
+      name: "httpd" 
+      state: started 
+      enabled: yes
+      
+      
+  - firewalld: 
+      immediate: yes 
+      permanent: yes 
+      port: "80/tcp" 
+      state: enabled

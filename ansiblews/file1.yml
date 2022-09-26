@@ -1,0 +1,18 @@
+- hosts: 192.168.0.113
+  vars:
+          x: 15
+          y: 20
+
+  vars_prompt:
+          - name: z
+            private: no
+
+  tasks:
+  - debug: 
+          msg: "This is my Test print"
+
+  - debug:
+          var: z
+
+  - debug:
+          msg: "This os print my data from {{ y }} varible"

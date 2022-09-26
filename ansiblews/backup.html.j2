@@ -1,0 +1,13 @@
+Hi welcome to {{ company_name }}.
+
+{% if ansible_os_family == "RedHat" %}
+I am from redhat os
+
+
+{% endif %}
+
+{% if ansible_os_family == "Ubuntu" %}
+I am from Ubuntu os.
+
+
+#{% endif %}
